@@ -8,9 +8,9 @@ const ListContact = () => {
     <div css={listcontactstyle}>
       <div className="image-contact">
         <img
-          src={`http://placeimg.com/50/50/people`}
-          className="icon search-icon"
-          alt="search-icon"
+          src={require("../../assets/icons/usersnoround.svg").default}
+          className="icon addcontact-icon"
+          alt="addcontact-icon"
         />
       </div>
       <div className="info-contact">

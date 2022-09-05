@@ -13,12 +13,14 @@ const listcontactstyle = css({
   display: "flex",
   flexWrap: "wrap",
   flexDirection: "row",
-  backgroundColor: "white",
   justifyContent: "space-between",
   alignItems: "center",
+  backgroundColor: "white",
   "& .image-contact": {
     flexGrow: 1,
+    marginRight: 10,
     "& img": {
+      maxHeight: 50,
       borderRadius: 20,
     },
   },

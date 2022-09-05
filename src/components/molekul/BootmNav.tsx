@@ -16,7 +16,7 @@ const BootmNav = () => {
       </NavLink>
       <NavLink to={`/favorite`} className="bottom-items">
         <img
-          src={require("../../assets/icons/favorites.svg").default}
+          src={require("../../assets/icons/nofavorites.svg").default}
           className="icon favorite-icon"
           alt="favorite-icon"
         />

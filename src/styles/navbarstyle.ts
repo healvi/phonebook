@@ -5,6 +5,8 @@ const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp, i) => `@media (min-width: ${bp}px)`);
 
 const navbarstyle = css({
+  position: "fixed",
+  top: 0,
   width: "100%",
   maxWidth: "100%",
   maxHeight: "max-content",
