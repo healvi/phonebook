@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
-import { ListContact } from "../components";
 import { detailstyle } from "../styles";
 
 const Details = () => {
