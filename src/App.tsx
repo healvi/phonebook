@@ -1,15 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
 import { css } from "@emotion/react";
-import { BootmNav, Navbar } from "./components";
-import { homestyle } from "./styles/home";
+
+import Routest from "./routes";
 
 function App() {
   return (
-    <div css={homestyle}>
-      <Navbar />
-      <BootmNav />
-    </div>
+    <>
+      <Routest />
+    </>
   );
 }
 
