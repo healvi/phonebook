@@ -9,7 +9,7 @@ const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin": "https://www.tokopedia.com",
       //   "Access-Control-Allow-Credentials": true,
       //   "Timing-Allow-Origin": "https://log.tokopedia.net",
       //   "X-Frame-Options": "SAMEORIGIN",
