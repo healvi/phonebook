@@ -1,31 +1,52 @@
-import React, { createContext, useContext, useReducer } from "react";
-import { ADD_TOP_CONTACT } from "./constant";
+import React, { createContext, useContext, useReducer, useEffect } from "react";
+import { ADD_TOP_CONTACT, ADD_TOP_PAGINATE } from "./constant";
 import contactReducer, { initialState } from "./contactReducer";
-import { valueInterface, reducerInterface } from "./interfaces";
-
+import { reducerInterface, Contacts } from "./interfaces";
+import useGetContact from "../hooks/useGetContact";
 type Props = {
   children?: JSX.Element | JSX.Element[];
 };
 
-const contactContext = createContext<valueInterface>(initialState);
+const contactContext = createContext<reducerInterface>(
+  initialState as reducerInterface
+);
 
 export const ContactProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(contactReducer, initialState);
+  const { loading, error, data } = useGetContact();
+  useEffect(() => {
+    AddToContact(loading, error, data);
+  }, [loading, error, data]);
 
-  const addToContact = (contact: []) => {
-    const updatedCart = state.contacts.concat(contact);
+  const AddToContact = (loading: Boolean, error: any, contacts?: Contacts) => {
+    let data = contacts !== undefined ? contacts.contact : [];
     dispatch({
       type: ADD_TOP_CONTACT,
       payload: {
-        contacts: updatedCart,
+        error: error,
+        loading: loading,
+        contact: contacts !== undefined ? data : [],
+      },
+    });
+  };
+
+  const PaginateToContact = (contact: []) => {
+    const updatedContact = contact;
+    dispatch({
+      type: ADD_TOP_PAGINATE,
+      payload: {
+        contacts: updatedContact,
       },
     });
   };
 
   const value: reducerInterface = {
+    error: state.error,
+    loading: state.loading,
     contacts: state.contacts,
     favorite: state.favorite,
-    addToContact,
+    AddToContact,
+    PaginateToContact,
   };
   return (
     <contactContext.Provider value={value}>{children}</contactContext.Provider>

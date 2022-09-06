@@ -3,18 +3,23 @@ import { setContext } from "@apollo/client/link/context";
 
 const httpLink = createHttpLink({
   uri: "https://wpe-hiring.tokopedia.net/graphql",
+  credentials: "include",
+  fetchOptions: {
+    mode: "cors",
+  },
 });
 
 const authLink = setContext((_, { headers }) => {
   return {
     headers: {
       ...headers,
-      "Access-Control-Allow-Origin": "https://www.tokopedia.com",
-      //   "Access-Control-Allow-Credentials": true,
-      //   "Timing-Allow-Origin": "https://log.tokopedia.net",
-      //   "X-Frame-Options": "SAMEORIGIN",
-      //   Accept: "application/json",
-      //   "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "www.tokopedia.com",
+      "Access-Control-Allow-Headers": "*",
+      "Access-Control-Allow-Credentials": "true",
+      "Access-Control-Expose-Headers": "*",
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Origin: "*",
     },
   };
 });

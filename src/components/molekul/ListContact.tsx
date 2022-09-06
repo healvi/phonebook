@@ -2,8 +2,10 @@
 import React from "react";
 import { css } from "@emotion/react";
 import { listcontactstyle } from "../../styles";
+import { Contact } from "../../context/interfaces";
 
-const ListContact = () => {
+const ListContact = (props: any) => {
+  const { first_name, last_name, id, phones } = props.data;
   return (
     <div css={listcontactstyle}>
       <div className="image-contact">
@@ -14,8 +16,14 @@ const ListContact = () => {
         />
       </div>
       <div className="info-contact">
-        <p className="name-contact">Mohammad Irvan</p>
-        <p className="number-contact">085735784123</p>
+        <p className="name-contact">
+          {first_name} {last_name}
+        </p>
+        {phones.length ? (
+          <p className="number-contact">{phones[0].number}</p>
+        ) : (
+          <p className="number-contact">Belum Ada Number</p>
+        )}
       </div>
       {/* <div className="action-contact">
         <img

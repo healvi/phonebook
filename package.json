@@ -2,6 +2,7 @@
   "name": "phonebook",
   "version": "0.1.0",
   "private": true,
+  "proxy": "https://www.tokopedia.com/",
   "dependencies": {
     "@apollo/client": "^3.6.9",
     "@emotion/react": "^11.10.4",

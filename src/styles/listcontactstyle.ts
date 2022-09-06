@@ -36,6 +36,7 @@ const listcontactstyle = css({
     },
     "& .name-contact": {
       fontWeight: 700,
+      textTransform: "uppercase",
     },
   },
   "& .action-contact": {

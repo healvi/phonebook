@@ -1,12 +1,17 @@
 export interface valueInterface {
-  contacts: Contacts[];
-  favorite: Contacts[];
+  loading: Boolean;
+  error: any[];
+  contacts: Contact[];
+  favorite: Contact[];
 }
 
 export interface reducerInterface {
-  contacts: Contacts[];
-  favorite: Contacts[];
-  addToContact: (contact: []) => void;
+  loading: Boolean;
+  error: any[];
+  contacts: Contact[];
+  favorite: Contact[];
+  AddToContact: (loading: Boolean, error: any, contact?: Contacts) => void;
+  PaginateToContact: (contact: []) => void;
 }
 
 export interface Contacts {

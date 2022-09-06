@@ -1,4 +1,5 @@
 import { useQuery, gql } from "@apollo/client";
+import { useEffect } from "react";
 
 const GET_CONTACTS = gql`
   query contacts {
@@ -14,9 +15,9 @@ const GET_CONTACTS = gql`
   }
 `;
 
-const useContact = () => {
+const useGetContact = () => {
   const { loading, error, data } = useQuery(GET_CONTACTS);
-
+  useEffect(() => {}, [loading, data, error]);
   return {
     loading,
     error,
@@ -24,4 +25,4 @@ const useContact = () => {
   };
 };
 
-export default useContact;
+export default useGetContact;
