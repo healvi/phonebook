@@ -11,7 +11,7 @@ export interface reducerInterface {
   contacts: Contact[];
   favorite: Contact[];
   AddToContact: (loading: Boolean, error: any, contact?: Contacts) => void;
-  PaginateToContact: (contact: []) => void;
+  PaginateToContact: (loading: Boolean, error: any, contact?: Contacts) => void;
 }
 
 export interface Contacts {

@@ -1,7 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
+import React, { useEffect, useState } from "react";
+import useContact from "../../context/ContactContext";
 import { paginationstyle } from "../../styles";
 const Pagination = () => {
+  const [paginate, setPaginate] = useState({
+    limit: 10,
+  });
+  const { loading, error, contacts } = useContact();
+  useEffect(() => {
+    console.log(contacts);
+  }, [loading, error, contacts]);
   return (
     <div css={paginationstyle}>
       <div className="pagination-container">

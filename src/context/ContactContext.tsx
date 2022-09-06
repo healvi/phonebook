@@ -2,7 +2,6 @@ import React, { createContext, useContext, useReducer, useEffect } from "react";
 import { ADD_TOP_CONTACT, ADD_TOP_PAGINATE } from "./constant";
 import contactReducer, { initialState } from "./contactReducer";
 import { reducerInterface, Contacts } from "./interfaces";
-import useGetContact from "../hooks/useGetContact";
 type Props = {
   children?: JSX.Element | JSX.Element[];
 };
@@ -13,11 +12,6 @@ const contactContext = createContext<reducerInterface>(
 
 export const ContactProvider = ({ children }: Props) => {
   const [state, dispatch] = useReducer(contactReducer, initialState);
-  const { loading, error, data } = useGetContact();
-  useEffect(() => {
-    AddToContact(loading, error, data);
-  }, [loading, error, data]);
-
   const AddToContact = (loading: Boolean, error: any, contacts?: Contacts) => {
     let data = contacts !== undefined ? contacts.contact : [];
     dispatch({
@@ -30,12 +24,18 @@ export const ContactProvider = ({ children }: Props) => {
     });
   };
 
-  const PaginateToContact = (contact: []) => {
-    const updatedContact = contact;
+  const PaginateToContact = (
+    loading: Boolean,
+    error: any,
+    contacts?: Contacts
+  ) => {
+    let data = contacts !== undefined ? contacts.contact : [];
     dispatch({
       type: ADD_TOP_PAGINATE,
       payload: {
-        contacts: updatedContact,
+        error: error,
+        loading: loading,
+        contact: contacts !== undefined ? data : [],
       },
     });
   };

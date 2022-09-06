@@ -5,11 +5,11 @@ import { ListContact } from "../components";
 import Pagination from "../components/molekul/Pagination";
 import useContact from "../context/ContactContext";
 import { Contact } from "../context/interfaces";
+import useGetContact from "../hooks/useGetContact";
 const PhoneBook = () => {
+  const getQuery = useGetContact();
   const { loading, error, contacts } = useContact();
-  useEffect(() => {
-    console.log(contacts);
-  }, [loading, error, contacts]);
+  useEffect(() => {}, [loading, error, contacts]);
   return (
     <div css={homestyle}>
       {!loading ? (
@@ -18,7 +18,7 @@ const PhoneBook = () => {
             <ListContact key={index} data={value} />
           ))
         ) : (
-          <div>Loading.......</div>
+          <div>Data Empty</div>
         )
       ) : (
         <div>Loading.......</div>
