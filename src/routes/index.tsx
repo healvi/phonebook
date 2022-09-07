@@ -10,7 +10,7 @@ const Routest = () => (
         <Route path="/favorite" element={<Favorite />} />
       </Route>
       <Route path="/details/:id" element={<Details />} />
-      <Route path="/form/:id" element={<FormPage />} />
+      <Route path="/create" element={<FormPage />} />
       {/* // <Route path="*" element={} /> */}
     </Routes>
   </Router>

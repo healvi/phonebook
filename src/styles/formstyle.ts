@@ -26,13 +26,25 @@ const formstyle = css({
     "& form": {
       display: "flex",
       flexDirection: "column",
+      "& .number-conatiner": {
+        display: "flex",
+        flexDirection: "row",
+        "& input[type=number]": {
+          flexGrow: 9,
+        },
+        "& .icon": {
+          flexGrow: 1,
+          maxWidth: 20,
+          marginLeft: 10,
+        },
+      },
       "& .btn": {
         padding: 10,
         borderRadius: 20,
       },
       "& input[type=text], input[type=number]": {
-        marginTop: 20,
-        marginBottom: 20,
+        marginTop: 5,
+        marginBottom: 5,
         borderRadius: 20,
         padding: 10,
       },

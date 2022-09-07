@@ -1,17 +1,30 @@
 /** @jsxImportSource @emotion/react */
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { detailstyle } from "../styles";
 import { useEffect } from "react";
-import useGetDetails from "../hooks/useGetDetails";
+import { GET_DETAILS } from "../hooks/useGetDetails";
 import { Numbers } from "../context/interfaces";
-
+import { useLazyQuery, useMutation } from "@apollo/client";
+import { DELETE_CONTACT } from "../hooks/useDeleteContact";
 const Details = () => {
   const params = useParams();
-  const { loading, error, data } = useGetDetails(Number(params.id));
+  const navigate = useNavigate();
+  const [deleteContact] = useMutation(DELETE_CONTACT);
+  const [getDetails, { loading, error, data }] = useLazyQuery(GET_DETAILS);
+  const handleDelete = (id: number) => {
+    deleteContact({
+      variables: { id },
+      onCompleted: () => navigate("/"),
+    });
+  };
   useEffect(() => {
-    console.log(data);
-  }, [loading, error, data]);
+    let id = Number(params.id);
+    getDetails({
+      variables: { id },
+    });
+  }, []);
+  useEffect(() => {}, [loading, error, data]);
   return (
     <div css={detailstyle}>
       {!loading && data !== undefined ? (
@@ -63,7 +76,12 @@ const Details = () => {
           )}
 
           <button className="btn btn-edit">Edit</button>
-          <button className="btn btn-delete">Delete</button>
+          <button
+            className="btn btn-delete"
+            onClick={() => handleDelete(data["contact_by_pk"].id)}
+          >
+            Delete
+          </button>
         </div>
       ) : (
         <div>Loading ...........</div>

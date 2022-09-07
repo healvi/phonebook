@@ -8,7 +8,7 @@ const Pagination = () => {
   });
   const { loading, error, contacts } = useContact();
   useEffect(() => {
-    console.log(contacts);
+    // console.log(contacts);
   }, [loading, error, contacts]);
   return (
     <div css={paginationstyle}>

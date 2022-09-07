@@ -1,24 +1,59 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from "react";
 import { formstyle } from "../styles";
+import { ADD_CONTACT } from "../hooks/useAddContact";
+import { useMutation } from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 
 const FormPage = () => {
+  const navigate = useNavigate();
+  const [addContact] = useMutation(ADD_CONTACT);
+
+  const [rules, setRules] = useState({
+    first_name: true,
+    last_name: true,
+    phones: true,
+  });
   const [forms, setforms] = useState({
     first_name: "",
     last_name: "",
     phones: [
       {
-        number: 0,
+        number: "",
       },
     ],
   });
+
+  const checkrules = () => {
+    const specialChars = /[ `!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+
+    setRules({
+      ...rules,
+      first_name: !(
+        !specialChars.test(forms.first_name) && forms.first_name.length !== 0
+      ),
+      last_name: !(
+        !specialChars.test(forms.last_name) && forms.last_name.length !== 0
+      ),
+      phones: !(
+        forms.phones.length !== 0 && forms.phones.every((v) => v.number !== "")
+      ),
+    });
+    return rules.first_name && rules.last_name && rules.phones;
+  };
+
   const handleForm = (e: any) => {
     e.preventDefault();
-    console.log(forms);
+    if (!checkrules()) {
+      addContact({
+        variables: forms,
+        onCompleted: () => navigate("/"),
+      });
+    }
   };
+
   const handleChange = (e: any) => {
     const { name, value } = e.target;
-
     setforms({
       ...forms,
       [name]: value,
@@ -26,15 +61,18 @@ const FormPage = () => {
   };
   const handleNumber = (e: any) => {
     const { name, value } = e.target;
-
-    // setforms({
-    //   ...forms,
-    //   [name]: value,
-    // });
+    let newForm = forms;
+    newForm.phones[Number(name)] = { number: String(value) };
+    setforms({
+      ...newForm,
+    });
   };
   useEffect(() => {
-    console.log(forms);
+    checkrules();
   }, [forms]);
+  useEffect(() => {
+    console.log(rules);
+  }, [rules]);
 
   return (
     <div css={formstyle}>
@@ -60,37 +98,51 @@ const FormPage = () => {
             placeholder="Your name.."
           />
 
-          <label htmlFor="lnumber">Your Number</label>
           {forms.phones.map((v, i) => (
-            <input
-              key={i}
-              type="number"
-              id="number"
-              name={`${i}`}
-              value={v.number}
-              placeholder="number.."
-            />
+            <div key={i}>
+              <label htmlFor="lnumber">Your Number {i + 1}</label>
+              <div className="number-conatiner">
+                <input
+                  onChange={(e) => handleNumber(e)}
+                  type="number"
+                  id="number"
+                  name={`${i}`}
+                  placeholder="number.."
+                />
+                {i <= 0 ? (
+                  <img
+                    onClick={() =>
+                      setforms({
+                        ...forms,
+                        phones: [...forms.phones, { number: "" }],
+                      })
+                    }
+                    src={require("../assets/icons/plus.svg").default}
+                    className="icon addcontact-icon"
+                    alt="addcontact-icon"
+                  />
+                ) : (
+                  <img
+                    onClick={() => {
+                      let newData = forms.phones;
+                      newData.splice(i, 1);
+                      setforms({ ...forms, phones: newData });
+                    }}
+                    src={require("../assets/icons/minus.svg").default}
+                    className="icon addcontact-icon"
+                    alt="addcontact-icon"
+                  />
+                )}
+              </div>
+            </div>
           ))}
-          <button
-            className="btn btn-add"
-            onClick={() =>
-              setforms({ ...forms, phones: [...forms.phones, { number: 0 }] })
-            }
-          >
-            Add More Number
-          </button>
-          <button
-            className="btn btn-add"
-            disabled={forms.phones.length <= 1}
-            onClick={() => {
-              let newData = forms.phones;
-              newData.pop();
-              setforms({ ...forms, phones: newData });
-            }}
-          >
-            Delete More Number
-          </button>
-          <input type="submit" className="btn btn-edit" value="submit" />
+
+          <input
+            type="submit"
+            className="btn btn-edit"
+            value="Submit"
+            disabled={rules.first_name || rules.last_name || rules.phones}
+          />
           <button className="btn btn-delete">Cancel</button>
         </form>
       </div>

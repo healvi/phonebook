@@ -7,9 +7,15 @@ import useContact from "../context/ContactContext";
 import { Contact } from "../context/interfaces";
 import useGetContact from "../hooks/useGetContact";
 const PhoneBook = () => {
-  const getQuery = useGetContact();
+  const { getContact } = useGetContact();
   const { loading, error, contacts } = useContact();
-  useEffect(() => {}, [loading, error, contacts]);
+  useEffect(() => {
+    console.log("reload");
+    getContact();
+  }, []);
+  useEffect(() => {
+    console.log(contacts);
+  }, [loading, error, contacts]);
   return (
     <div css={homestyle}>
       {!loading ? (

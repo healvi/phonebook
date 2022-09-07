@@ -1,10 +1,9 @@
 import { gql, useLazyQuery } from "@apollo/client";
 import { useEffect } from "react";
 import useContact from "../context/ContactContext";
-
-const GET_CONTACTS = gql`
-  query contacts {
-    contact {
+const GET_DETAILS = gql`
+  query GetContactDetail($where: contact_bool_exp) {
+    contact(where: $where) {
       created_at
       first_name
       id
@@ -16,18 +15,20 @@ const GET_CONTACTS = gql`
   }
 `;
 
-const useGetContact = () => {
-  const [getContact, { loading, error, data }] = useLazyQuery(GET_CONTACTS);
+const useSearchContact = () => {
   const { AddToContact } = useContact();
+  const [searchContact, { loading, error, data }] = useLazyQuery(GET_DETAILS);
+
   useEffect(() => {
     AddToContact(loading, error, data);
   }, [loading, error, data]);
+
   return {
     loading,
     error,
     data,
-    getContact,
+    searchContact,
   };
 };
-export { GET_CONTACTS };
-export default useGetContact;
+
+export default useSearchContact;

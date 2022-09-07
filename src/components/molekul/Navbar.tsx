@@ -1,13 +1,28 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from "react";
-import { css } from "@emotion/react";
 import { navbarstyle } from "../../styles";
+import useSearchContact from "../../hooks/useSearchContact";
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
+  const navigate = useNavigate();
+  const { searchContact } = useSearchContact();
   const [open, setOpen] = useState(false);
-  const [search, setSearch] = useState("");
-  useEffect(() => {
-    console.log(search);
-  }, [search]);
+  const setSearch = (e: String) => {
+    let names = e.split(" ");
+    searchContact({
+      variables: {
+        where: {
+          first_name: { _ilike: `%${names[0]}%` },
+          _and: {
+            last_name: {
+              _ilike: `%${names[1] !== undefined ? names[1] : ""}%`,
+            },
+          },
+        },
+      },
+    });
+  };
+  useEffect(() => {}, []);
   return (
     <div css={navbarstyle}>
       <div className="nav-title">
@@ -22,6 +37,7 @@ const Navbar = () => {
           alt="search-icon"
         />
         <img
+          onClick={() => navigate("/create")}
           src={require("../../assets/icons/userplus.svg").default}
           className="icon addcontact-icon"
           alt="addcontact-icon"

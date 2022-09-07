@@ -1,6 +1,5 @@
-import { useQuery, gql } from "@apollo/client";
+import { useQuery, gql, useLazyQuery } from "@apollo/client";
 import { useEffect } from "react";
-import useContact from "../context/ContactContext";
 
 const GET_DETAILS = gql`
   query GetContactDetail($id: Int!) {
@@ -8,7 +7,6 @@ const GET_DETAILS = gql`
       last_name
       id
       first_name
-      created_at
       phones {
         number
       }
@@ -16,17 +14,16 @@ const GET_DETAILS = gql`
   }
 `;
 
-const useGetDetails = (id: number) => {
-  const { loading, error, data } = useQuery(GET_DETAILS, {
-    variables: { id },
-  });
+const useGetDetails = () => {
+  const [getDetails, { loading, error, data }] = useLazyQuery(GET_DETAILS);
 
   useEffect(() => {}, [loading, error, data]);
   return {
     loading,
     error,
     data,
+    getDetails,
   };
 };
-
+export { GET_DETAILS };
 export default useGetDetails;
