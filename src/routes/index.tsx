@@ -9,8 +9,8 @@ const Routest = () => (
         <Route index element={<PhoneBook />} />
         <Route path="/favorite" element={<Favorite />} />
       </Route>
-      <Route path="/details/:name" element={<Details />} />
-      <Route path="/form/:name" element={<FormPage />} />
+      <Route path="/details/:id" element={<Details />} />
+      <Route path="/form/:id" element={<FormPage />} />
       {/* // <Route path="*" element={} /> */}
     </Routes>
   </Router>

@@ -3,11 +3,13 @@ import React from "react";
 import { css } from "@emotion/react";
 import { listcontactstyle } from "../../styles";
 import { Contact } from "../../context/interfaces";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const ListContact = (props: any) => {
+  const navigate = useNavigate();
   const { first_name, last_name, id, phones } = props.data;
   return (
-    <div css={listcontactstyle}>
+    <div css={listcontactstyle} onClick={() => navigate(`/details/${id}`)}>
       <div className="image-contact">
         <img
           src={require("../../assets/icons/usersnoround.svg").default}
