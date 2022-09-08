@@ -1,11 +1,14 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from "react";
 import { navbarstyle } from "../../styles";
-import useSearchContact from "../../hooks/useSearchContact";
 import { useNavigate } from "react-router-dom";
+import { GET_CONTACTS } from "../../hooks/useGetContact";
+import { useLazyQuery } from "@apollo/client";
+import useContact from "../../context/ContactContext";
 const Navbar = () => {
   const navigate = useNavigate();
-  const { searchContact } = useSearchContact();
+  const [searchContact, { loading, error, data }] = useLazyQuery(GET_CONTACTS);
+  const { AddToContact } = useContact();
   const [open, setOpen] = useState(false);
   const setSearch = (e: String) => {
     let names = e.split(" ");
@@ -22,7 +25,9 @@ const Navbar = () => {
       },
     });
   };
-  useEffect(() => {}, []);
+  useEffect(() => {
+    AddToContact(loading, error, data);
+  }, [loading, error, data]);
   return (
     <div css={navbarstyle}>
       <div className="nav-title">

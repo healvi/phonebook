@@ -1,9 +1,5 @@
-import {
-  ADD_TOP_CONTACT,
-  ADD_TOP_FAVORITE,
-  ADD_TOP_PAGINATE,
-} from "./constant";
-import { valueInterface, Contacts } from "./interfaces";
+import { ADD_TOP_CONTACT, ADD_TOP_FAVORITE } from "./constant";
+import { valueInterface } from "./interfaces";
 
 export const initialState: valueInterface = {
   loading: false,
@@ -23,17 +19,10 @@ const contactReducer = (state: any, action: any) => {
         loading: payload.loading,
         contacts: payload.contact,
       };
-    case ADD_TOP_PAGINATE:
-      return {
-        ...state,
-        error: payload.error,
-        loading: payload.loading,
-        contacts: payload.contact,
-      };
     case ADD_TOP_FAVORITE:
       return {
         ...state,
-        favorite: payload,
+        favorite: payload.data,
       };
     default:
       throw new Error(`No case for type ${type} found in contactReducer.`);

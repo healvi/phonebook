@@ -1,7 +1,12 @@
 import React, { createContext, useContext, useReducer } from "react";
-import { ADD_TOP_CONTACT } from "./constant";
+import { ADD_TOP_CONTACT, ADD_TOP_FAVORITE } from "./constant";
 import contactReducer, { initialState } from "./contactReducer";
-import { reducerInterface, Contacts } from "./interfaces";
+import {
+  reducerInterface,
+  Contacts,
+  Contact,
+  ContactWithFav,
+} from "./interfaces";
 type Props = {
   children?: JSX.Element | JSX.Element[];
 };
@@ -24,12 +29,38 @@ export const ContactProvider = ({ children }: Props) => {
     });
   };
 
+  const AddToFavorite = (favorite: Contact[], data: ContactWithFav) => {
+    data.isFavorite = true;
+    let newData = [];
+    const isAvaliable =
+      favorite !== undefined
+        ? favorite.find((element: any) => element.id === data.id)
+        : false;
+    if (isAvaliable) {
+      newData = favorite.filter((element: any) => element.id !== data.id);
+    } else {
+      if (favorite !== undefined) {
+        newData = [...favorite, data];
+      } else {
+        newData = [data];
+      }
+    }
+    dispatch({
+      type: ADD_TOP_FAVORITE,
+      payload: {
+        data: newData,
+      },
+    });
+  };
+
   const value: reducerInterface = {
     error: state.error,
     loading: state.loading,
     contacts: state.contacts,
     favorite: state.favorite,
+    paginate: state.paginate,
     AddToContact,
+    AddToFavorite,
   };
   return (
     <contactContext.Provider value={value}>{children}</contactContext.Provider>

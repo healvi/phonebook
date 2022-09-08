@@ -6,6 +6,7 @@ const mq = breakpoints.map((bp, i) => `@media (min-width: ${bp}px)`);
 
 const navbarstyle = css({
   position: "fixed",
+  overflow: "hidden",
   top: 0,
   width: "100%",
   maxWidth: "100%",

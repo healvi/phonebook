@@ -1,5 +1,4 @@
 import { css } from "@emotion/react";
-import { jsx } from "@emotion/react";
 
 const breakpoints = [576, 768, 992, 1200];
 const mq = breakpoints.map((bp, i) => `@media (min-width: ${bp}px)`);
@@ -16,6 +15,12 @@ const listcontactstyle = css({
   justifyContent: "space-between",
   alignItems: "center",
   backgroundColor: "white",
+  "& .deskripsi": {
+    flexGrow: 9,
+    display: "flex",
+    flexWrap: "wrap",
+    flexDirection: "row",
+  },
   "& .image-contact": {
     flexGrow: 1,
     marginRight: 10,
@@ -25,7 +30,7 @@ const listcontactstyle = css({
     },
   },
   "& .info-contact": {
-    flexGrow: 6,
+    flexGrow: 5,
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "column",
@@ -40,13 +45,20 @@ const listcontactstyle = css({
     },
   },
   "& .action-contact": {
-    flexGrow: 3,
+    flexBasis: 70,
     display: "flex",
     flexWrap: "wrap",
     flexDirection: "row",
-    justifyContent: "center",
+    justifyContent: "space-between",
     "& .icon": {
       maxWidth: 30,
+    },
+    "& .bundle": {
+      flexGrow: 1,
+      display: "flex",
+      flexWrap: "wrap",
+      flexDirection: "row",
+      justifyContent: "space-between",
     },
   },
   "& .icon": {

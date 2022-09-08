@@ -7,9 +7,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* html , #root, body {
+html , #root, body {
   height: 100vh;
-} */
+  position: relative;
+}
 * {
     box-sizing: border-box;
 }

@@ -10,11 +10,22 @@ export interface reducerInterface {
   error: any[];
   contacts: Contact[];
   favorite: Contact[];
+  paginate: Pagination;
   AddToContact: (loading: Boolean, error: any, contact?: Contacts) => void;
+  AddToFavorite: (favorite: Contact[], data: ContactWithFav) => void;
 }
 
 export interface Contacts {
   contact: Contact[];
+}
+
+export interface ContactWithFav {
+  created_at: String;
+  first_name: String;
+  id: 5;
+  last_name: String;
+  phones: Numbers[];
+  isFavorite: Boolean;
 }
 
 export interface Contact {
@@ -24,6 +35,13 @@ export interface Contact {
   last_name: String;
   phones: Numbers[];
 }
+
+export interface Pagination {
+  order_by: Object[];
+  offset: number;
+  limit: number;
+}
+
 export interface Numbers {
   number: String;
 }

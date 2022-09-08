@@ -140,7 +140,7 @@ const FormPage = () => {
           <input
             type="submit"
             className="btn btn-edit"
-            value="Submit"
+            value="Save"
             disabled={rules.first_name || rules.last_name || rules.phones}
           />
           <button className="btn btn-delete">Cancel</button>

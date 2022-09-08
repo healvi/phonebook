@@ -53,6 +53,11 @@ const formstyle = css({
         backgroundColor: "blue",
         color: "white",
       },
+      "& input[type=submit]:disabled": {
+        marginTop: 10,
+        backgroundColor: "lightblue",
+        color: "white",
+      },
       "& .btn-delete": {
         marginTop: 10,
         backgroundColor: "red",

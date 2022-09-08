@@ -27,9 +27,7 @@ const ADD_CONTACT = gql`
 
 const useAddContact = () => {
   const [addContact, { loading, error, data }] = useMutation(ADD_CONTACT);
-  useEffect(() => {
-    console.log(data);
-  }, [loading, error, data]);
+  useEffect(() => {}, [loading, error, data]);
   return {
     loading,
     error,

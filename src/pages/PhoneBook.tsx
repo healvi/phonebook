@@ -4,33 +4,50 @@ import { homestyle } from "../styles";
 import { ListContact } from "../components";
 import Pagination from "../components/molekul/Pagination";
 import useContact from "../context/ContactContext";
-import { Contact } from "../context/interfaces";
-import useGetContact from "../hooks/useGetContact";
+import { Contact, ContactWithFav } from "../context/interfaces";
+import { useState } from "react";
 const PhoneBook = () => {
-  const { getContact } = useGetContact();
-  const { loading, error, contacts } = useContact();
+  const { loading, error, contacts, favorite } = useContact();
+  const [listContact, setListContact] = useState<ContactWithFav[]>([]);
+  const { AddToContact } = useContact();
+  const setFavList = () => {
+    const newData = contacts.map((contacts) => ({
+      ...contacts,
+      isFavorite:
+        favorite !== undefined
+          ? favorite.find((fav) => fav.id === contacts.id)
+            ? true
+            : false
+          : false,
+    }));
+    setListContact(newData);
+  };
   useEffect(() => {
-    console.log("reload");
-    getContact();
-  }, []);
-  useEffect(() => {
-    console.log(contacts);
-  }, [loading, error, contacts]);
+    setFavList();
+  }, [loading, error, contacts, favorite]);
   return (
-    <div css={homestyle}>
-      {!loading ? (
-        contacts.length ? (
-          contacts.map((value: Contact, index: number, array: Contact[]) => (
-            <ListContact key={index} data={value} />
-          ))
+    <>
+      <div css={homestyle}>
+        {!loading ? (
+          listContact.length ? (
+            listContact.map(
+              (value: ContactWithFav, index: number, array: Contact[]) => {
+                return value.isFavorite ? (
+                  <></>
+                ) : (
+                  <ListContact key={index} data={value} />
+                );
+              }
+            )
+          ) : (
+            <div>Data Empty</div>
+          )
         ) : (
-          <div>Data Empty</div>
-        )
-      ) : (
-        <div>Loading.......</div>
-      )}
-      <Pagination />
-    </div>
+          <div>Loading.......</div>
+        )}
+        <Pagination AddToContact={AddToContact} />
+      </div>
+    </>
   );
 };
 

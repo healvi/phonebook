@@ -15,13 +15,20 @@ const Details = () => {
   const handleDelete = (id: number) => {
     deleteContact({
       variables: { id },
-      onCompleted: () => navigate("/"),
+      onCompleted: () => {
+        navigate("/", { replace: true });
+      },
     });
   };
   useEffect(() => {
     let id = Number(params.id);
     getDetails({
       variables: { id },
+      onCompleted: (data) => {
+        if (data["contact_by_pk"] === null) {
+          navigate("/", { replace: true });
+        }
+      },
     });
   }, []);
   useEffect(() => {}, [loading, error, data]);

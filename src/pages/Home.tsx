@@ -3,13 +3,13 @@ import { BootmNav, Navbar } from "../components";
 import { Outlet } from "react-router-dom";
 const Home = () => {
   return (
-    <div>
+    <>
       <Navbar />
-      <div>
-        <Outlet />
-      </div>
+
+      <Outlet />
+
       <BootmNav />
-    </div>
+    </>
   );
 };
 
