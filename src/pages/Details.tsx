@@ -1,21 +1,15 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { detailstyle } from "../styles";
 import { useEffect } from "react";
 import { GET_DETAILS } from "../hooks/useGetDetails";
 import { Numbers } from "../context/interfaces";
 import { useLazyQuery } from "@apollo/client";
-import useContact from "../context/ContactContext";
 
 const Details = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const { DeleteContact } = useContact();
   const [getDetails, { loading, error, data }] = useLazyQuery(GET_DETAILS);
-  const handleDelete = (id: number) => {
-    DeleteContact(id);
-  };
   useEffect(() => {
     let id = Number(params.id);
     getDetails({
