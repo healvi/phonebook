@@ -4,22 +4,11 @@ import { listcontactstyle } from "../../styles";
 import { useNavigate } from "react-router-dom";
 import useContact from "../../context/ContactContext";
 import { useEffect } from "react";
-import { useMutation } from "@apollo/client";
-import { DELETE_CONTACT } from "../../hooks/useDeleteContact";
 
 const ListContact = (props: any) => {
   const navigate = useNavigate();
-  const { favorite, AddToFavorite } = useContact();
-  const [deleteContact] = useMutation(DELETE_CONTACT);
+  const { AddToFavorite, DeleteContact } = useContact();
   const { first_name, last_name, id, phones, isFavorite } = props.data;
-  const handleDelete = (id: number) => {
-    deleteContact({
-      variables: { id },
-      onCompleted: () => {
-        navigate("/", { replace: true });
-      },
-    });
-  };
   useEffect(() => {}, []);
   return (
     <div css={listcontactstyle}>
@@ -45,7 +34,7 @@ const ListContact = (props: any) => {
       <div className="action-contact">
         {isFavorite ? (
           <img
-            onClick={() => AddToFavorite(favorite, props.data)}
+            onClick={() => AddToFavorite(props.data)}
             src={require("../../assets/icons/favorites.svg").default}
             className="icon favorite-icon"
             alt="favorite-icon"
@@ -53,13 +42,13 @@ const ListContact = (props: any) => {
         ) : (
           <div className="bundle">
             <img
-              onClick={() => AddToFavorite(favorite, props.data)}
+              onClick={() => AddToFavorite(props.data)}
               src={require("../../assets/icons/nofavorites.svg").default}
               className="icon favorite-icon"
               alt="favorite-icon"
             />
             <img
-              onClick={() => handleDelete(props.data.id)}
+              onClick={() => DeleteContact(props.data.id)}
               src={require("../../assets/icons/trash.svg").default}
               className="icon favorite-icon"
               alt="favorite-icon"

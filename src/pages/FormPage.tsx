@@ -1,14 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import React, { useState, useEffect } from "react";
+import useContact from "../context/ContactContext";
 import { formstyle } from "../styles";
-import { ADD_CONTACT } from "../hooks/useAddContact";
-import { useMutation } from "@apollo/client";
-import { useNavigate } from "react-router-dom";
 
 const FormPage = () => {
-  const navigate = useNavigate();
-  const [addContact] = useMutation(ADD_CONTACT);
-
+  const { CreateContact } = useContact();
   const [rules, setRules] = useState({
     first_name: true,
     last_name: true,
@@ -45,10 +41,7 @@ const FormPage = () => {
   const handleForm = (e: any) => {
     e.preventDefault();
     if (!checkrules()) {
-      addContact({
-        variables: forms,
-        onCompleted: () => navigate("/"),
-      });
+      CreateContact(forms);
     }
   };
 

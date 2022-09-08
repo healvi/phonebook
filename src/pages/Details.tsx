@@ -5,20 +5,16 @@ import { detailstyle } from "../styles";
 import { useEffect } from "react";
 import { GET_DETAILS } from "../hooks/useGetDetails";
 import { Numbers } from "../context/interfaces";
-import { useLazyQuery, useMutation } from "@apollo/client";
-import { DELETE_CONTACT } from "../hooks/useDeleteContact";
+import { useLazyQuery } from "@apollo/client";
+import useContact from "../context/ContactContext";
+
 const Details = () => {
   const params = useParams();
   const navigate = useNavigate();
-  const [deleteContact] = useMutation(DELETE_CONTACT);
+  const { DeleteContact } = useContact();
   const [getDetails, { loading, error, data }] = useLazyQuery(GET_DETAILS);
   const handleDelete = (id: number) => {
-    deleteContact({
-      variables: { id },
-      onCompleted: () => {
-        navigate("/", { replace: true });
-      },
-    });
+    DeleteContact(id);
   };
   useEffect(() => {
     let id = Number(params.id);
@@ -83,12 +79,6 @@ const Details = () => {
           )}
 
           <button className="btn btn-edit">Edit</button>
-          <button
-            className="btn btn-delete"
-            onClick={() => handleDelete(data["contact_by_pk"].id)}
-          >
-            Delete
-          </button>
         </div>
       ) : (
         <div>Loading ...........</div>

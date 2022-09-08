@@ -1,15 +1,16 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { homestyle } from "../styles";
 import { ListContact } from "../components";
 import Pagination from "../components/molekul/Pagination";
 import useContact from "../context/ContactContext";
 import { Contact, ContactWithFav } from "../context/interfaces";
-import { useState } from "react";
+
 const PhoneBook = () => {
+  const { GettingContact } = useContact();
+  const { pagination, SetPagination } = useContact();
   const { loading, error, contacts, favorite } = useContact();
   const [listContact, setListContact] = useState<ContactWithFav[]>([]);
-  const { AddToContact } = useContact();
   const setFavList = () => {
     const newData = contacts.map((contacts) => ({
       ...contacts,
@@ -23,8 +24,14 @@ const PhoneBook = () => {
     setListContact(newData);
   };
   useEffect(() => {
+    console.log(listContact);
     setFavList();
   }, [loading, error, contacts, favorite]);
+
+  useEffect(() => {
+    GettingContact(pagination);
+  }, [pagination]);
+
   return (
     <>
       <div css={homestyle}>
@@ -45,7 +52,7 @@ const PhoneBook = () => {
         ) : (
           <div>Loading.......</div>
         )}
-        <Pagination AddToContact={AddToContact} />
+        <Pagination pagination={pagination} SetPagination={SetPagination} />
       </div>
     </>
   );

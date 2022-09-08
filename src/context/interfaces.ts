@@ -3,6 +3,7 @@ export interface valueInterface {
   error: any[];
   contacts: Contact[];
   favorite: Contact[];
+  pagination: Pagination;
 }
 
 export interface reducerInterface {
@@ -10,9 +11,13 @@ export interface reducerInterface {
   error: any[];
   contacts: Contact[];
   favorite: Contact[];
-  paginate: Pagination;
+  pagination: Pagination;
   AddToContact: (loading: Boolean, error: any, contact?: Contacts) => void;
-  AddToFavorite: (favorite: Contact[], data: ContactWithFav) => void;
+  AddToFavorite: (data: ContactWithFav) => void;
+  DeleteContact: (id: number) => void;
+  GettingContact: (pagination: Pagination) => void;
+  SetPagination: (payload: Pagination) => void;
+  CreateContact: (forms: ContactWIthoutID) => void;
 }
 
 export interface Contacts {
@@ -20,18 +25,22 @@ export interface Contacts {
 }
 
 export interface ContactWithFav {
-  created_at: String;
   first_name: String;
-  id: 5;
+  id: number;
   last_name: String;
   phones: Numbers[];
   isFavorite: Boolean;
 }
 
 export interface Contact {
-  created_at: String;
   first_name: String;
-  id: 5;
+  id: number;
+  last_name: String;
+  phones: Numbers[];
+}
+
+export interface ContactWIthoutID {
+  first_name: String;
   last_name: String;
   phones: Numbers[];
 }
