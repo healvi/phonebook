@@ -31,7 +31,7 @@ const Navbar = () => {
   return (
     <div css={navbarstyle}>
       <div className="nav-title">
-        <p>PhoneBook</p>
+        <p data-testid="title-navbar">PhoneBook</p>
         <p>298 Contact List</p>
       </div>
       <div className="nav-content">
@@ -40,12 +40,14 @@ const Navbar = () => {
           src={require("../../assets/icons/search.svg").default}
           className="icon search-icon"
           alt="search-icon"
+          data-testid="search-icon"
         />
         <img
           onClick={() => navigate("/create")}
           src={require("../../assets/icons/userplus.svg").default}
           className="icon addcontact-icon"
           alt="addcontact-icon"
+          data-testid="add-icon"
         />
       </div>
       <div className={`search-container ${open ? "show" : "hidden"}`}>
@@ -53,6 +55,7 @@ const Navbar = () => {
           onChange={(e) => setSearch(e.target.value)}
           className="search-input"
           placeholder="Search"
+          data-testid="search-input"
         />
       </div>
     </div>

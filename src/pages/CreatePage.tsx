@@ -69,7 +69,7 @@ const FormPage = () => {
 
   return (
     <div css={formstyle}>
-      <div className="form-container">
+      <div className="form-container" data-testid="forms">
         <h1>Contact</h1>
         <form onSubmit={handleForm}>
           <label htmlFor="fname">First Name</label>
@@ -80,6 +80,7 @@ const FormPage = () => {
             value={forms.first_name}
             name="first_name"
             placeholder="Your name.."
+            data-testid="input-firstname"
           />
           <label htmlFor="lname">Last Name</label>
           <input
@@ -89,6 +90,7 @@ const FormPage = () => {
             value={forms.last_name}
             name="last_name"
             placeholder="Your name.."
+            data-testid="input-lastname"
           />
 
           {forms.phones.map((v, i) => (
@@ -101,6 +103,7 @@ const FormPage = () => {
                   id="number"
                   name={`${i}`}
                   placeholder="number.."
+                  data-testid={`input-number${i + 1}`}
                 />
                 {i <= 0 ? (
                   <img
@@ -110,6 +113,7 @@ const FormPage = () => {
                         phones: [...forms.phones, { number: "" }],
                       })
                     }
+                    data-testid="plus-number"
                     src={require("../assets/icons/plus.svg").default}
                     className="icon addcontact-icon"
                     alt="addcontact-icon"
@@ -124,6 +128,7 @@ const FormPage = () => {
                     src={require("../assets/icons/minus.svg").default}
                     className="icon addcontact-icon"
                     alt="addcontact-icon"
+                    data-testid="minus-number"
                   />
                 )}
               </div>
@@ -134,9 +139,12 @@ const FormPage = () => {
             type="submit"
             className="btn btn-edit"
             value="Save"
+            data-testid="save-number"
             disabled={rules.first_name || rules.last_name || rules.phones}
           />
-          <button className="btn btn-delete">Cancel</button>
+          <button data-testid="cancel-number" className="btn btn-delete">
+            Cancel
+          </button>
         </form>
       </div>
     </div>
