@@ -18,7 +18,7 @@ const Details = () => {
       variables: { id },
       onCompleted: (data) => {
         if (data["contact_by_pk"] === null) {
-          navigate("/", { replace: true });
+          navigate("/notfound", { replace: true });
         }
       },
     });
