@@ -101,7 +101,7 @@ const EditPage = () => {
             placeholder="Your name.."
           />
 
-          {forms.phones.map((v, i) => (
+          {/* {forms.phones.map((v, i) => (
             <div key={i}>
               <label htmlFor="lnumber">Your Number {i + 1}</label>
               <div className="number-conatiner">
@@ -139,7 +139,7 @@ const EditPage = () => {
                 )}
               </div>
             </div>
-          ))}
+          ))} */}
 
           <input
             type="submit"
