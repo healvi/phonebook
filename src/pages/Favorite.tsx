@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import React from "react";
 import { ListContact } from "../components";
 import useContact from "../context/ContactContext";
 import { Contact } from "../context/interfaces";

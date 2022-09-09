@@ -2,6 +2,7 @@ import {
   ADD_TOP_CONTACT,
   ADD_TOP_FAVORITE,
   ADD_TOP_PAGINATE,
+  FILL_EDIT,
 } from "./constant";
 import { valueInterface } from "./interfaces";
 
@@ -14,6 +15,12 @@ export const initialState: valueInterface = {
     order_by: [{ first_name: "asc" }],
     offset: 0,
     limit: 10,
+  },
+  editData: {
+    id: 0,
+    first_name: "",
+    last_name: "",
+    phones: [],
   },
 };
 
@@ -32,6 +39,11 @@ const contactReducer = (state: any, action: any) => {
       return {
         ...state,
         favorite: payload.data,
+      };
+    case FILL_EDIT:
+      return {
+        ...state,
+        editData: payload.data,
       };
     case ADD_TOP_PAGINATE:
       return {

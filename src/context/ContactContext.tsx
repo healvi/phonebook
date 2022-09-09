@@ -5,6 +5,7 @@ import {
   ADD_TOP_CONTACT,
   ADD_TOP_FAVORITE,
   ADD_TOP_PAGINATE,
+  FILL_EDIT,
 } from "./constant";
 import contactReducer, { initialState } from "./contactReducer";
 import { useNavigate } from "react-router-dom";
@@ -14,10 +15,12 @@ import {
   ContactWithFav,
   Pagination,
   ContactWIthoutID,
+  Contact,
 } from "./interfaces";
 import { GET_CONTACTS } from "../hooks/useGetContact";
 import { ADD_CONTACT } from "../hooks/useAddContact";
-import { Contact } from "./interfaces";
+import { EDIT_CONTACT, EDIT_NUMBER } from "../hooks/useEditContact";
+import { Numbers } from "./interfaces";
 type Props = {
   children?: JSX.Element | JSX.Element[];
 };
@@ -33,6 +36,10 @@ export const ContactProvider = ({ children }: Props) => {
   const [getContact, { loading, error }] = useLazyQuery(GET_CONTACTS, {
     fetchPolicy: "network-only",
   });
+  // Edit
+  const [editContact] = useMutation(EDIT_CONTACT);
+  // nUMBER
+  const [numberContact] = useMutation(EDIT_NUMBER);
   // Del
   const [delContact] = useMutation(DELETE_CONTACT);
   // Create
@@ -104,24 +111,62 @@ export const ContactProvider = ({ children }: Props) => {
     });
   };
 
+  const FillEditContact = (forms: Contact) => {
+    let after = new Promise(function (myResolve, myReject) {
+      dispatch({
+        type: FILL_EDIT,
+        payload: {
+          data: forms,
+        },
+      });
+      myResolve("OK");
+    });
+    after.then(() => navigate("/edit"));
+  };
+
   const CreateContact = (forms: ContactWIthoutID) => {
     addContact({
       variables: forms,
       onCompleted: () => navigate("/"),
     });
   };
+
+  const postNumberContact = (data: Numbers[]) => {
+    // numberContact({
+    //   variables: data,
+    //   onCompleted: () => navigate("/"),
+    // });
+  };
+  const EditContact = (forms: Contact) => {
+    const data = {
+      id: forms.id,
+      _set: {
+        first_name: forms.first_name,
+        last_name: forms.last_name,
+      },
+    };
+    editContact({
+      variables: data,
+      onCompleted: () => navigate("/"),
+    });
+    postNumberContact(forms.phones);
+  };
+
   const value: reducerInterface = {
     error: state.error,
     loading: state.loading,
     contacts: state.contacts,
     favorite: state.favorite,
     pagination: state.pagination,
+    editData: state.editData,
     AddToContact,
     AddToFavorite,
     DeleteContact,
     GettingContact,
     SetPagination,
     CreateContact,
+    EditContact,
+    FillEditContact,
   };
   return (
     <contactContext.Provider value={value}>{children}</contactContext.Provider>

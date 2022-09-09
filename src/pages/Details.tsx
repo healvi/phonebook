@@ -5,10 +5,12 @@ import { useEffect } from "react";
 import { GET_DETAILS } from "../hooks/useGetDetails";
 import { Numbers } from "../context/interfaces";
 import { useLazyQuery } from "@apollo/client";
+import useContact from "../context/ContactContext";
 
 const Details = () => {
   const params = useParams();
   const navigate = useNavigate();
+  const { FillEditContact } = useContact();
   const [getDetails, { loading, error, data }] = useLazyQuery(GET_DETAILS);
   useEffect(() => {
     let id = Number(params.id);
@@ -72,7 +74,14 @@ const Details = () => {
             <div>Tidak Ada Nomor</div>
           )}
 
-          <button className="btn btn-edit">Edit</button>
+          <button
+            onClick={() => {
+              FillEditContact(data["contact_by_pk"]);
+            }}
+            className="btn btn-edit"
+          >
+            Edit
+          </button>
         </div>
       ) : (
         <div>Loading ...........</div>

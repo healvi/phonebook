@@ -1,5 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import useContact from "../context/ContactContext";
 import { formstyle } from "../styles";
 
