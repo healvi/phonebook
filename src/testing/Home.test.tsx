@@ -1,5 +1,4 @@
 import { fireEvent, render, screen, waitFor } from "@testing-library/react";
-import { MockedProvider } from "@apollo/client/testing";
 import App from "../App";
 import { ApolloProvider } from "@apollo/client";
 import client from "../utils/appoloConfig";

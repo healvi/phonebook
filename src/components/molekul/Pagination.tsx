@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */
-import React, { useEffect } from "react";
-import useContact from "../../context/ContactContext";
+import React from "react";
 import { paginationstyle } from "../../styles";
 
 const Pagination = ({ pagination, SetPagination }: any) => {

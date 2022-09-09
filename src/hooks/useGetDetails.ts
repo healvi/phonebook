@@ -1,4 +1,4 @@
-import { useQuery, gql, useLazyQuery } from "@apollo/client";
+import { gql, useLazyQuery } from "@apollo/client";
 import { useEffect } from "react";
 
 const GET_DETAILS = gql`

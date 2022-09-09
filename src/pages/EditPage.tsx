@@ -100,47 +100,6 @@ const EditPage = () => {
             name="last_name"
             placeholder="Your name.."
           />
-
-          {/* {forms.phones.map((v, i) => (
-            <div key={i}>
-              <label htmlFor="lnumber">Your Number {i + 1}</label>
-              <div className="number-conatiner">
-                <input
-                  onChange={(e) => handleNumber(e)}
-                  type="number"
-                  id="number"
-                  value={forms.phones[i].number}
-                  name={`${i}`}
-                  placeholder="number.."
-                />
-                {i <= 0 ? (
-                  <img
-                    onClick={() =>
-                      setforms({
-                        ...forms,
-                        phones: [...forms.phones, { number: "" }],
-                      })
-                    }
-                    src={require("../assets/icons/plus.svg").default}
-                    className="icon addcontact-icon"
-                    alt="addcontact-icon"
-                  />
-                ) : (
-                  <img
-                    onClick={() => {
-                      let newData = forms.phones;
-                      newData.splice(i, 1);
-                      setforms({ ...forms, phones: newData });
-                    }}
-                    src={require("../assets/icons/minus.svg").default}
-                    className="icon addcontact-icon"
-                    alt="addcontact-icon"
-                  />
-                )}
-              </div>
-            </div>
-          ))} */}
-
           <input
             type="submit"
             className="btn btn-edit"
